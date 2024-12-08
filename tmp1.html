@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Art Collage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f8f9fa;
+        }
+        canvas {
+            border: 2px solid #ccc;
+            background-color: #fff;
+        }
+        #container {
+            text-align: center;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #downloadBtn {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <canvas id="wordArtCanvas" width="800" height="600"></canvas>
+    <br>
+    <button onclick="generateWordArt()">Generate Word Art</button>
+    <br>
+    <button id="downloadBtn" onclick="downloadImage()">Download Image</button>
+</div>
+
+<script>
+    const wishes = [
+        "Wishing you happiness and joy!",
+        "May all your dreams come true!",
+        "Success is on the way!",
+        "Stay positive, work hard!",
+        "The best is yet to come!",
+        "Believe in yourself!",
+        "Every moment is a fresh beginning.",
+        "Life is a journey, enjoy the ride.",
+        "May peace and love fill your life.",
+        "Wishing you a bright and beautiful future!"
+    ];
+
+    const canvas = document.getElementById('wordArtCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Function to generate word art
+    function generateWordArt() {
+        // Clear the canvas before drawing
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Set canvas background color
+        ctx.fillStyle = '#f8f9fa'; // Light background
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Define colors for the words
+        const colors = ['#FF5733', '#33FF57', '#3357FF', '#FFD700', '#FF1493', '#8A2BE2'];
+
+        // Draw the wishes randomly on the canvas
+        wishes.forEach(wish => {
+            const fontSize = Math.floor(Math.random() * 20) + 30; // Random font size between 30 and 50
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            ctx.font = `${fontSize}px Arial`;
+            ctx.fillStyle = color;
+
+            let placed = false;
+            let attempts = 0;
+            const maxAttempts = 100;
+
+            while (!placed && attempts < maxAttempts) {
+                // Randomly select a position within canvas bounds
+                let xPosition = Math.floor(Math.random() * (canvas.width - fontSize * wish.length));
+                let yPosition = Math.floor(Math.random() * (canvas.height - fontSize));
+
+                // Ensure the word does not overlap with others by checking a small area around the position
+                if (isPositionAvailable(xPosition, yPosition, fontSize, wish.length)) {
+                    ctx.fillText(wish, xPosition, yPosition);
+                    placed = true; // Successfully placed the text
+                }
+                attempts++;
+            }
+        });
+    }
+
+    // Function to check if a position is available for text (simple collision check)
+    function isPositionAvailable(x, y, fontSize, wordLength) {
+        // Simple check: if the word goes out of bounds
+        if (x < 0 || y < 0 || x + fontSize * wordLength > canvas.width || y + fontSize > canvas.height) {
+            return false;
+        }
+        return true;
+    }
+
+    // Function to download the canvas as an image
+    function downloadImage() {
+        const imageUrl = canvas.toDataURL('image/png'); // Convert canvas to base64 PNG
+        const link = document.createElement('a');
+        link.href = imageUrl; // Set the image URL as the download link
+        link.download = 'word_art_collage.png'; // Set the default filename for the download
+        link.click(); // Trigger the download
+    }
+
+    // Initialize with some word art
+    generateWordArt();
+</script>
+
+</body>
+</html>

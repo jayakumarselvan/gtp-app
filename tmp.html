@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wish Viewer</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .wish-box {
+    margin: 10px auto;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff; /* Default background */
+    max-width: 500px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: #fff; /* Default text color for contrast */
+    min-height: 150px; /* Set a minimum height */
+    position: relative; /* Required for positioning inner elements */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    }
+
+    .wish-number {
+    position: absolute;
+    top: 10px; /* Adjust distance from the top */
+    left: 50%;
+    transform: translateX(-50%); /* Center horizontally */
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 5px; /* Gap below the page number */
+    }
+
+    .wish-text {
+    margin: 30px 0; /* Space above and below the wish text */
+    font-size: 1.2rem;
+    color: inherit;
+    }
+
+    .wish-author {
+    position: absolute;
+    bottom: 10px; /* Adjust distance from the bottom */
+    right: 10px; /* Adjust distance from the right */
+    font-size: 0.85rem;
+    color: #6c757d;
+    display: none; /* Hidden by default */
+    margin-top: 10px; /* Gap above the author */
+    }
+    .buttons-container {
+      margin-top: 20px; /* Space before buttons */
+    }
+
+    .button-box {
+      text-align: center;
+      margin-top: 20px; /* Space between the wish box and buttons */
+    }
+  </style>
+</head>
+<body class="bg-light">
+  <div class="container">
+    <!-- Wish Box -->
+    <div class="wish-box text-center" id="wishBox">
+      <p class="wish-number" id="wishNumber">1/4</p>
+      <p class="wish-text fs-5" id="wishText">Click "Next" to see the first wish!</p>
+      <p class="wish-author " id="wishAuthor">- Author</p>
+    </div>
+
+    <!-- Button Box -->
+    <div class="button-box">
+      <button class="btn btn-secondary me-2" id="prevButton" disabled>Previous</button>
+      <button class="btn btn-secondary me-2" id="viewAuthorButton">View Author</button>
+      <button class="btn btn-primary" id="nextButton">Next</button>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // List of wishes
+    const wishes = [
+      { text: "Wishing you a day full of love and joy!", author: "Alice" },
+      { text: "May your dreams come true and happiness surround you! May your dreams come true and happiness surround you! May your dreams come true and happiness surround you!", author: "Bob" },
+      { text: "Hope you have a fantastic and unforgettable day! May your dreams come true and happiness surround you!", author: "Charlie" },
+      { text: "Sending you all the positive vibes and good wishes! May your dreams come true and happiness surround you! May your dreams come true and happiness surround you! May your dreams come true and happiness surround you! May your dreams come true and happiness surround you!", author: "Diana" },
+    ];
+
+    // Array of random background colors
+    const backgroundColors = [
+      "#FF5733", "#33B5E5", "#FFC107", "#009688", "#8E44AD",
+      "#FF8A65", "#4CAF50", "#FF5252", "#00BCD4", "#FFEB3B"
+    ];
+
+    let currentIndex = 0;
+
+    // Get DOM elements
+    const wishBoxElement = document.getElementById("wishBox");
+    const wishTextElement = document.getElementById("wishText");
+    const wishAuthorElement = document.getElementById("wishAuthor");
+    const wishNumberElement = document.getElementById("wishNumber");
+    const prevButton = document.getElementById("prevButton");
+    const nextButton = document.getElementById("nextButton");
+    const viewAuthorButton = document.getElementById("viewAuthorButton");
+
+    // Function to display the current wish
+    function displayWish() {
+      const currentWish = wishes[currentIndex];
+      wishTextElement.textContent = currentWish.text;
+      wishAuthorElement.style.display = "none"; // Hide author initially
+      wishNumberElement.textContent = `${currentIndex + 1}/${wishes.length}`; // Update wish number
+
+      // Set a random background color
+      const randomColor = backgroundColors[Math.floor(Math.random() * backgroundColors.length)];
+      wishBoxElement.style.backgroundColor = randomColor;
+      wishBoxElement.style.color = "#fff"; // Set text color for better contrast
+
+      // Disable/Enable Previous and Next buttons
+      prevButton.disabled = currentIndex === 0; // Disable if at the first wish
+      nextButton.disabled = currentIndex === wishes.length - 1; // Disable if at the last wish
+    }
+
+    // Function to display the author
+    function displayAuthor() {
+      const currentWish = wishes[currentIndex];
+      wishAuthorElement.textContent = `- ${currentWish.author}`;
+      wishAuthorElement.style.display = "block"; // Show author
+    }
+
+    // Event listener for the "Next" button
+    nextButton.addEventListener("click", () => {
+      if (currentIndex < wishes.length - 1) {
+        currentIndex++;
+        displayWish();
+      }
+    });
+
+    // Event listener for the "Previous" button
+    prevButton.addEventListener("click", () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        displayWish();
+      }
+    });
+
+    // Event listener for the "View Author" button
+    viewAuthorButton.addEventListener("click", displayAuthor);
+
+    // Initial wish display
+    displayWish();
+  </script>
+</body>
+</html>

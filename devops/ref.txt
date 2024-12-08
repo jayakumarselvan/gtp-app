@@ -1,0 +1,7 @@
+ln -s /Users/jayakumarselvan/github/jayakumarselvan/gtp-app /opt/homebrew/var/www/gtp.jayakumar.xyz
+
+
+
+
+
+mkcert gtp.jayakumar.xyz
