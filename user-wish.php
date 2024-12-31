@@ -113,7 +113,10 @@
 
 
 <script>
-  const wishes = <?= json_encode($wishes); ?>;
+  const unShuffledWishes = <?= json_encode($wishes); ?>;
+  // console.log("unShuffledWishes: ", <?= json_encode($wishes); ?>);
+  const wishes = shuffleArray(unShuffledWishes);
+  // console.log("wishes: ", wishes);
 
   // Timer variables
   let currentWishTime = 0; // Time for the current wish in seconds
@@ -238,6 +241,14 @@
 
   // Initial wish display
   displayWish();
+
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const randomIndex = Math.floor(Math.random() * (i + 1)); // Random index from 0 to i
+      [array[i], array[randomIndex]] = [array[randomIndex], array[i]]; // Swap elements
+    }
+    return array;
+  }
 
 </script>
 
