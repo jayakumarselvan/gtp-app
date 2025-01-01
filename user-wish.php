@@ -55,6 +55,10 @@
       /* margin-bottom: 10px; */
     }
 
+    .wish-text{
+      white-space: pre-wrap;
+    }
+
     .button-box {
       text-align: center;
       margin-top: 20px; /* Space between the wish box and buttons */
@@ -97,9 +101,9 @@
     </div>
   
   <!-- Wish Box -->
-  <div class="wish-box text-center py-4" id="wishBox">
+  <div class="wish-box py-4" id="wishBox">
     
-    <p class="wish-text fs-5" id="wishText">Click "Next" to see the first wish!</p>
+    <p class="wish-text fs-5" id="wishText" >Click "Next" to see the first wish!</p>
     <p class="wish-author" id="wishAuthor" style="display: none;">- Author</p>
   </div>
 
