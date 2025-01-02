@@ -72,3 +72,22 @@ function getMyReceivedWishList($wishUserId){
     $stmt->execute([$wishUserId]);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function getMyWishes($wishUserId){
+    global $pdo;
+    $stmt = $pdo->prepare("select
+	w.id as w_id,
+	w.year as w_year,
+	w.user_id as w_user_id,
+	w.wish_user_id as w_wish_user_id,
+	w.wish as w_wish,
+	wu.name as wu_name,
+	u.name as u_name
+from 
+	wish as w
+    left join users as wu on wu.id = w.wish_user_id
+    left join users as u on u.id = w.user_id
+where w.wish_user_id=?");
+    $stmt->execute([$wishUserId]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}

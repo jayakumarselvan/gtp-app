@@ -64,6 +64,9 @@ $currentPage = basename($_SERVER['SCRIPT_NAME']);
               <li class="nav-item">
                 <a class="nav-link <?=($currentPage=='give-wishlist.php')?'active':'';?> " href="/give-wishlist.php">Wish List</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link <?=($currentPage=='mywishes.php')?'active':'';?> " href="/mywishes.php">My Wishes</a>
+              </li>
               <?php if(isAdmin()){ ?>
               <li class="nav-item">
                 <a class="nav-link <?=($currentPage=='users.php' || $currentPage=='user-wish.php')?'active':'';?>" href="/users.php">Users</a>
