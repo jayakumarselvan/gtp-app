@@ -135,7 +135,7 @@
                     ?>
                         <div class="wish-container">
                             <p><?=$wish["w_wish"];?></p>
-                            <p class="author">- <?=$wish["wu_name"];?></p>
+                            <p class="author">- <?=$wish["u_name"];?></p>
                         </div>
                     <?php
                 }
