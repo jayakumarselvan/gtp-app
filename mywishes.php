@@ -11,7 +11,7 @@
     $subTitle = "Heartfelt 2025 Wishes from Your GTP Friends";
 
     if ( !empty($wishList) && isset($wishList[0]) && !empty($wishList[0]) && isset($wishList[0]["u_name"]) && !empty($wishList[0]["u_name"]) ){
-        $userName = $wishList[0]["u_name"];
+        $userName = $wishList[0]["wu_name"];
         $photoFrameFileName = "GTP-2025-$userName-Wishes";
     }
 
